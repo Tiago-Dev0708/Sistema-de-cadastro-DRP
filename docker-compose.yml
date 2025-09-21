@@ -1,0 +1,53 @@
+services:
+
+    api:
+        build:
+           context: .
+        container_name: fastapi_backend
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/app 
+        env_file:
+            - .env
+        depends_on:
+            - postgres
+        networks:
+            - sistema-cadastro-DRP
+            
+    postgres:
+        image: postgres:latest
+        restart: always
+        ports:
+            - "5432:5432"
+        env_file:
+            - .env
+        volumes:
+            - ./pgdata:/var/lib/postgresql/data
+        networks:
+            - sistema-cadastro-DRP
+
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        env_file:
+            - .env
+        ports:
+            - "5050:80"
+        depends_on:
+            - postgres
+        networks:
+            - sistema-cadastro-DRP
+     
+
+
+volumes:
+  postgres_data:
+
+networks:
+    sistema-cadastro-DRP:
+        driver: bridge
+
+
+
+    
+  

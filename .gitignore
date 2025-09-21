@@ -1,0 +1,7 @@
+/venv
+.env
+/pgdata
+__pyc__*
+__pycache__*
+
+
